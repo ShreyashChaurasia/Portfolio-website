@@ -10,6 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- ═══════════════ FULL-PAGE PARTICLE CANVAS ═══════════════ -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- ═══════════════ CUSTOM CURSOR ═══════════════ -->
+    <div id="cursor-glow" class="cursor-glow"></div>
+    <div id="cursor-outer" class="cursor-outer"></div>
+    <div id="cursor-inner" class="cursor-inner"></div>
     <!-- ═══════════════ NAVIGATION ═══════════════ -->
     <nav id="navbar" class="navbar">
       <a href="#hero" class="nav-logo">
@@ -38,8 +45,25 @@
 
     <!-- ═══════════════ HERO ═══════════════ -->
     <section id="hero" class="hero">
-      <canvas id="particle-canvas"></canvas>
       <div class="hero-overlay"></div>
+
+      <!-- Floating parallax shapes - Hero -->
+      <div class="parallax-float hero-float" data-speed="0.3" data-rotate="0.02" style="top: 15%; left: 8%;">
+        <div class="float-shape shape-ring"></div>
+      </div>
+      <div class="parallax-float hero-float" data-speed="0.5" data-rotate="-0.03" style="top: 25%; right: 12%;">
+        <div class="float-shape shape-diamond"></div>
+      </div>
+      <div class="parallax-float hero-float" data-speed="0.2" data-rotate="0.01" style="bottom: 20%; left: 15%;">
+        <div class="float-shape shape-bracket">⟨/⟩</div>
+      </div>
+      <div class="parallax-float hero-float" data-speed="0.4" data-rotate="-0.02" style="top: 60%; right: 8%;">
+        <div class="float-shape shape-dots"></div>
+      </div>
+      <div class="parallax-float hero-float" data-speed="0.15" data-rotate="0.015" style="top: 40%; left: 3%;">
+        <div class="float-shape shape-cross">+</div>
+      </div>
+
       <div class="hero-content">
         <p class="hero-greeting">// Hello, World</p>
         <h1 class="hero-name">SHREY</h1>
@@ -67,6 +91,13 @@
 
     <!-- ═══════════════ ABOUT ═══════════════ -->
     <section id="about" class="section about">
+      <!-- Floating shapes - About -->
+      <div class="parallax-float" data-speed="0.25" data-rotate="0.01" style="top: 10%; right: 5%;">
+        <div class="float-shape shape-ring small"></div>
+      </div>
+      <div class="parallax-float" data-speed="0.35" data-rotate="-0.015" style="bottom: 15%; left: 3%;">
+        <div class="float-shape shape-cross">✦</div>
+      </div>
       <div class="container">
         <div class="section-header">
           <span class="section-number">01</span>
@@ -127,6 +158,13 @@
 
     <!-- ═══════════════ SKILLS ═══════════════ -->
     <section id="skills" class="section skills">
+      <!-- Floating shapes - Skills -->
+      <div class="parallax-float" data-speed="0.3" data-rotate="0.02" style="top: 20%; left: 5%;">
+        <div class="float-shape shape-diamond small"></div>
+      </div>
+      <div class="parallax-float" data-speed="0.2" data-rotate="-0.01" style="bottom: 10%; right: 8%;">
+        <div class="float-shape shape-bracket">{ }</div>
+      </div>
       <div class="container">
         <div class="section-header">
           <span class="section-number">02</span>
@@ -200,6 +238,13 @@
 
     <!-- ═══════════════ PROJECTS ═══════════════ -->
     <section id="projects" class="section projects">
+      <!-- Floating shapes - Projects -->
+      <div class="parallax-float" data-speed="0.4" data-rotate="0.025" style="top: 8%; right: 3%;">
+        <div class="float-shape shape-ring"></div>
+      </div>
+      <div class="parallax-float" data-speed="0.15" data-rotate="-0.02" style="bottom: 20%; left: 6%;">
+        <div class="float-shape shape-cross">◈</div>
+      </div>
       <div class="container">
         <div class="section-header">
           <span class="section-number">03</span>
@@ -291,6 +336,13 @@
 
     <!-- ═══════════════ EXPERIENCE ═══════════════ -->
     <section id="experience" class="section experience">
+      <!-- Floating shapes - Experience -->
+      <div class="parallax-float" data-speed="0.35" data-rotate="0.015" style="top: 15%; left: 4%;">
+        <div class="float-shape shape-dots"></div>
+      </div>
+      <div class="parallax-float" data-speed="0.2" data-rotate="-0.01" style="bottom: 12%; right: 5%;">
+        <div class="float-shape shape-diamond small"></div>
+      </div>
       <div class="container">
         <div class="section-header">
           <span class="section-number">04</span>
