@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shrey — Software Engineer & AI/ML Engineer</title>
+    <meta name="description" content="Portfolio of Shrey — Software Engineer and AI/ML Engineer. Explore projects, skills, and experience in full-stack development, machine learning, and artificial intelligence." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- ═══════════════ NAVIGATION ═══════════════ -->
+    <nav id="navbar" class="navbar">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bracket">[</span> SHREY <span class="logo-bracket">]</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link" data-section="about">About</a>
+        <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+        <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+        <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      </div>
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+      <a href="#about" class="mobile-link">About</a>
+      <a href="#skills" class="mobile-link">Skills</a>
+      <a href="#projects" class="mobile-link">Projects</a>
+      <a href="#experience" class="mobile-link">Experience</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section id="hero" class="hero">
+      <canvas id="particle-canvas"></canvas>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-greeting">// Hello, World</p>
+        <h1 class="hero-name">SHREY</h1>
+        <div class="hero-title-wrapper">
+          <span class="hero-title-label">role:</span>
+          <h2 class="hero-title" id="typed-title"></h2>
+          <span class="cursor">|</span>
+        </div>
+        <p class="hero-tagline">Building intelligent systems at the intersection of<br><span class="highlight">software engineering</span> & <span class="highlight">artificial intelligence</span></p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">
+            <span class="btn-text">View Projects</span>
+            <span class="btn-icon">→</span>
+          </a>
+          <a href="#contact" class="btn btn-ghost">
+            <span class="btn-text">Get in Touch</span>
+          </a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ ABOUT ═══════════════ -->
+    <section id="about" class="section about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-number">01</span>
+          <h2 class="section-title">About Me</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="about-grid">
+          <div class="about-text reveal-up">
+            <p class="about-intro">
+              I'm a <span class="highlight">Software Engineer</span> and <span class="highlight">AI/ML Engineer</span> passionate about building systems that learn, adapt, and scale.
+            </p>
+            <p>
+              With expertise spanning full-stack development and machine learning, I create end-to-end solutions — from designing robust architectures to training models that extract real-world insights. I thrive at the intersection of engineering rigor and creative problem-solving.
+            </p>
+            <p>
+              When I'm not coding, you'll find me exploring the latest research papers, contributing to open-source projects, or experimenting with novel AI architectures.
+            </p>
+            <div class="about-stats">
+              <div class="stat">
+                <span class="stat-number" data-count="15">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Projects Built</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number" data-count="5">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">ML Models Deployed</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number" data-count="3">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual reveal-up" style="--delay: 0.2s">
+            <div class="terminal-card">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">~/about.json</span>
+              </div>
+              <pre class="terminal-body"><code>{
+  <span class="json-key">"name"</span>: <span class="json-string">"Shrey"</span>,
+  <span class="json-key">"title"</span>: <span class="json-string">"Software & AI/ML Engineer"</span>,
+  <span class="json-key">"interests"</span>: [
+    <span class="json-string">"Deep Learning"</span>,
+    <span class="json-string">"Computer Vision"</span>,
+    <span class="json-string">"Full-Stack Dev"</span>,
+    <span class="json-string">"System Design"</span>
+  ],
+  <span class="json-key">"currently"</span>: <span class="json-string">"Building cool things"</span>,
+  <span class="json-key">"coffee"</span>: <span class="json-bool">true</span>
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ SKILLS ═══════════════ -->
+    <section id="skills" class="section skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-number">02</span>
+          <h2 class="section-title">Tech Stack</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="skills-grid">
+          <!-- Languages -->
+          <div class="skill-category reveal-up">
+            <h3 class="skill-category-title">
+              <span class="category-icon">⟨/⟩</span> Languages
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Rust</span>
+            </div>
+          </div>
+          <!-- AI/ML -->
+          <div class="skill-category reveal-up" style="--delay: 0.1s">
+            <h3 class="skill-category-title">
+              <span class="category-icon">◈</span> AI / ML
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag accent">PyTorch</span>
+              <span class="skill-tag accent">TensorFlow</span>
+              <span class="skill-tag accent">Scikit-Learn</span>
+              <span class="skill-tag accent">Hugging Face</span>
+              <span class="skill-tag accent">OpenCV</span>
+              <span class="skill-tag accent">LangChain</span>
+              <span class="skill-tag accent">ONNX</span>
+            </div>
+          </div>
+          <!-- Frameworks -->
+          <div class="skill-category reveal-up" style="--delay: 0.2s">
+            <h3 class="skill-category-title">
+              <span class="category-icon">⚙</span> Frameworks
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">FastAPI</span>
+              <span class="skill-tag">Flask</span>
+              <span class="skill-tag">Express</span>
+            </div>
+          </div>
+          <!-- Tools & DevOps -->
+          <div class="skill-category reveal-up" style="--delay: 0.3s">
+            <h3 class="skill-category-title">
+              <span class="category-icon">☁</span> Cloud & DevOps
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">AWS</span>
+              <span class="skill-tag">GCP</span>
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Redis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <section id="projects" class="section projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-number">03</span>
+          <h2 class="section-title">Featured Projects</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="project-card reveal-up">
+            <div class="project-image" id="project-img-1">
+              <div class="project-image-placeholder">
+                <span class="placeholder-icon">◈</span>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="Live Demo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-label">AI / Computer Vision</span>
+              <h3 class="project-name">Neural Style Transfer Engine</h3>
+              <p class="project-desc">Real-time neural style transfer application using deep CNNs. Transform photos into artistic masterpieces with custom model architectures and GPU-accelerated inference.</p>
+              <div class="project-tech">
+                <span>PyTorch</span><span>FastAPI</span><span>React</span><span>CUDA</span>
+              </div>
+            </div>
+          </article>
+          <!-- Project 2 -->
+          <article class="project-card reveal-up" style="--delay: 0.15s">
+            <div class="project-image" id="project-img-2">
+              <div class="project-image-placeholder">
+                <span class="placeholder-icon">⟨/⟩</span>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="Live Demo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-label">Full-Stack / NLP</span>
+              <h3 class="project-name">AI-Powered Code Reviewer</h3>
+              <p class="project-desc">Automated code review tool using LLM-based analysis. Provides intelligent suggestions for code quality, security vulnerabilities, and performance optimizations.</p>
+              <div class="project-tech">
+                <span>LangChain</span><span>Next.js</span><span>Python</span><span>GPT-4</span>
+              </div>
+            </div>
+          </article>
+          <!-- Project 3 -->
+          <article class="project-card reveal-up" style="--delay: 0.3s">
+            <div class="project-image" id="project-img-3">
+              <div class="project-image-placeholder">
+                <span class="placeholder-icon">☁</span>
+              </div>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="Live Demo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="project-label">MLOps / Infrastructure</span>
+              <h3 class="project-name">ML Pipeline Orchestrator</h3>
+              <p class="project-desc">End-to-end ML pipeline management platform. Automates data ingestion, model training, evaluation, and deployment with real-time monitoring dashboards.</p>
+              <div class="project-tech">
+                <span>Docker</span><span>Kubernetes</span><span>FastAPI</span><span>MLflow</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+    <section id="experience" class="section experience">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-number">04</span>
+          <h2 class="section-title">Experience</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item reveal-up">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h3>AI/ML Engineer</h3>
+                <span class="timeline-company">Tech Company</span>
+              </div>
+              <span class="timeline-date">2024 — Present</span>
+              <p>Leading development of ML infrastructure and deploying production-grade models. Building scalable data pipelines and optimizing model inference for real-time applications.</p>
+              <div class="timeline-tags">
+                <span>PyTorch</span><span>AWS</span><span>Docker</span><span>MLOps</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item reveal-up" style="--delay: 0.15s">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h3>Software Engineer</h3>
+                <span class="timeline-company">Startup Inc.</span>
+              </div>
+              <span class="timeline-date">2023 — 2024</span>
+              <p>Built and maintained full-stack applications serving thousands of users. Designed RESTful APIs, implemented CI/CD pipelines, and optimized application performance.</p>
+              <div class="timeline-tags">
+                <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>AWS</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-item reveal-up" style="--delay: 0.3s">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <h3>Research Assistant</h3>
+                <span class="timeline-company">University Lab</span>
+              </div>
+              <span class="timeline-date">2022 — 2023</span>
+              <p>Conducted research in computer vision and natural language processing. Published papers on novel attention mechanisms and contributed to open-source ML frameworks.</p>
+              <div class="timeline-tags">
+                <span>Python</span><span>TensorFlow</span><span>NLP</span><span>CV</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CONTACT ═══════════════ -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-number">05</span>
+          <h2 class="section-title">Get in Touch</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="contact-content reveal-up">
+          <p class="contact-text">
+            I'm always open to discussing <span class="highlight">new projects</span>, creative ideas, or opportunities to be part of something amazing. Let's build something great together.
+          </p>
+          <a href="mailto:hello@shrey.dev" class="btn btn-primary btn-lg">
+            <span class="btn-text">Say Hello</span>
+            <span class="btn-icon">→</span>
+          </a>
+          <div class="contact-socials">
+            <a href="https://github.com" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.733 16h4.267l-11.733 -16h-4.267z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+              <span>X / Twitter</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span class="footer-text">
+          <span class="footer-bracket">[</span> Designed & Built by Shrey <span class="footer-bracket">]</span>
+        </span>
+        <span class="footer-copy">© 2026 — All Rights Reserved</span>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
