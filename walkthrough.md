@@ -5,17 +5,27 @@ A dark-themed, immersive portfolio website inspired by **igloo.inc** and **antig
 
 **Stack**: Vite + Vanilla JS + CSS (no frameworks)
 
-## Sections & Screenshots
+## Screenshots
 
-````carousel
-![Hero — Full-page particle canvas, floating parallax shapes, custom cursor](C:/Users/shrey/.gemini/antigravity/brain/d887e49e-4c60-4dc4-afb1-1c3facc09c8b/particle_interaction_test_1772774725961.png)
-<!-- slide -->
-![Skills — Staggered tag cascade reveals, 3D tilt on skill cards](C:/Users/shrey/.gemini/antigravity/brain/d887e49e-4c60-4dc4-afb1-1c3facc09c8b/skills_section_1772774803289.png)
-<!-- slide -->
-![Projects — 3D perspective tilt on hover, particle network visible](C:/Users/shrey/.gemini/antigravity/brain/d887e49e-4c60-4dc4-afb1-1c3facc09c8b/project_hover_tilt_1772774822713.png)
-<!-- slide -->
-![Contact — Magnetic hover buttons, glowing social links](C:/Users/shrey/.gemini/antigravity/brain/d887e49e-4c60-4dc4-afb1-1c3facc09c8b/contact_section_1772774830977.png)
-````
+### Hero Section
+Full-page particle canvas with floating parallax shapes and custom glowing cursor:
+
+![Hero](docs/screenshots/hero.png)
+
+### Skills Section
+Staggered tag cascade reveals with 3D tilt on skill category cards:
+
+![Skills](docs/screenshots/skills.png)
+
+### Projects Section
+3D perspective tilt on hover with interactive particle network visible behind:
+
+![Projects](docs/screenshots/projects.png)
+
+### Contact Section
+Magnetic hover buttons and glowing social links:
+
+![Contact](docs/screenshots/contact.png)
 
 ## Key Design Features
 - **Deep dark base** (`#0a0a0f`) with cyan/purple glow accents
@@ -35,16 +45,13 @@ A dark-themed, immersive portfolio website inspired by **igloo.inc** and **antig
 - **Responsive** down to mobile with hamburger menu
 - **Touch device fallback** — custom cursor and parallax shapes hidden on touch screens
 
-## Interactive Demo Recording
-![Full interactive demo — particles, cursor, parallax, tilt effects](C:/Users/shrey/.gemini/antigravity/brain/d887e49e-4c60-4dc4-afb1-1c3facc09c8b/testing_interactive_portfolio_1772774687908.webp)
-
 ## Files Modified
 
 | File | Purpose |
 |------|---------|
-| [index.html](file:///c:/Users/shrey/OneDrive/Documents/Coding/Portfolio-website/index.html) | HTML structure — added full-page canvas, cursor elements, parallax shapes |
-| [style.css](file:///c:/Users/shrey/OneDrive/Documents/Coding/Portfolio-website/src/style.css) | Design system — added cursor, parallax, glow, tilt, and animation styles |
-| [main.js](file:///c:/Users/shrey/OneDrive/Documents/Coding/Portfolio-website/src/main.js) | Interactive systems — particle field, cursor, parallax, magnetic, tilt |
+| `index.html` | HTML structure — added full-page canvas, cursor elements, parallax shapes |
+| `src/style.css` | Design system — added cursor, parallax, glow, tilt, and animation styles |
+| `src/main.js` | Interactive systems — particle field, cursor, parallax, magnetic, tilt |
 
 ## Running Locally
 ```
