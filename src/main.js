@@ -1,18 +1,21 @@
 import './style.css';
 
 /* ══════════════════════════════════════════════════════════
-   MAIN.JS — Interactive particle canvas, custom cursor,
-   parallax, magnetic effects, scroll animations
+   MAIN.JS — Code-syntax particles, interactive hero,
+   custom cursor trail, theme toggle, parallax, animations
    ══════════════════════════════════════════════════════════ */
 
-// ─── Full-Page Interactive Particle Canvas ───
-class InteractiveParticleField {
+// ─── Code Syntax Particle Field ───
+const CODE_SYMBOLS = ['{', '}', '(', ')', '=>', '</>', ';', '//', '#', '[]', '&&', '||', '!=', '++', '--', '**', '::',  'fn', 'if', '01', '<?', '/>'];
+
+class CodeParticleField {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.particles = [];
-    this.mouse = { x: -1000, y: -1000, radius: 200 };
+    this.mouse = { x: -1000, y: -1000, radius: 220 };
     this.scrollY = 0;
+    this.isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     this.resize();
     this.init();
     this.bindEvents();
@@ -27,79 +30,70 @@ class InteractiveParticleField {
   init() {
     this.particles = [];
     const area = this.canvas.width * this.canvas.height;
-    const count = Math.min(Math.floor(area / 6000), 200);
+    const count = Math.min(Math.floor(area / 8000), 150);
 
     for (let i = 0; i < count; i++) {
       const type = Math.random();
-      let radius, speed, opacity, color;
+      let fontSize, speed, opacity, color;
 
       if (type < 0.15) {
-        // Large accent particles
-        radius = Math.random() * 2.5 + 1.5;
-        speed = 0.15;
-        opacity = Math.random() * 0.5 + 0.3;
+        fontSize = Math.random() * 6 + 14;
+        speed = 0.12;
+        opacity = Math.random() * 0.4 + 0.25;
         color = Math.random() > 0.5 ? 'cyan' : 'purple';
       } else if (type < 0.4) {
-        // Medium particles
-        radius = Math.random() * 1.5 + 0.8;
-        speed = 0.25;
-        opacity = Math.random() * 0.4 + 0.2;
+        fontSize = Math.random() * 4 + 11;
+        speed = 0.2;
+        opacity = Math.random() * 0.3 + 0.15;
         color = 'cyan';
       } else {
-        // Small ambient particles
-        radius = Math.random() * 0.8 + 0.3;
-        speed = 0.35;
-        opacity = Math.random() * 0.25 + 0.08;
+        fontSize = Math.random() * 3 + 9;
+        speed = 0.3;
+        opacity = Math.random() * 0.2 + 0.06;
         color = 'white';
       }
 
       this.particles.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        baseX: Math.random() * this.canvas.width,
-        baseY: Math.random() * this.canvas.height,
         vx: (Math.random() - 0.5) * speed,
         vy: (Math.random() - 0.5) * speed,
-        radius,
-        baseRadius: radius,
+        fontSize,
+        baseFontSize: fontSize,
         opacity,
         baseOpacity: opacity,
         color,
+        symbol: CODE_SYMBOLS[Math.floor(Math.random() * CODE_SYMBOLS.length)],
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.008,
         angle: Math.random() * Math.PI * 2,
-        angleSpeed: (Math.random() - 0.5) * 0.01,
-        driftRadius: Math.random() * 30 + 10,
+        angleSpeed: (Math.random() - 0.5) * 0.008,
+        driftRadius: Math.random() * 25 + 8,
       });
     }
   }
 
   bindEvents() {
-    window.addEventListener('resize', () => {
-      this.resize();
-      this.init();
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      this.mouse.x = e.clientX;
-      this.mouse.y = e.clientY;
-    });
-
-    window.addEventListener('mouseout', () => {
-      this.mouse.x = -1000;
-      this.mouse.y = -1000;
-    });
-
-    window.addEventListener('scroll', () => {
-      this.scrollY = window.scrollY;
-    }, { passive: true });
+    window.addEventListener('resize', () => { this.resize(); this.init(); });
+    window.addEventListener('mousemove', (e) => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; });
+    window.addEventListener('mouseout', () => { this.mouse.x = -1000; this.mouse.y = -1000; });
+    window.addEventListener('scroll', () => { this.scrollY = window.scrollY; }, { passive: true });
   }
 
   getColor(particle, alpha) {
-    if (particle.color === 'cyan') {
-      return `rgba(0, 212, 255, ${alpha})`;
-    } else if (particle.color === 'purple') {
-      return `rgba(123, 47, 255, ${alpha})`;
+    if (this.isDark) {
+      if (particle.color === 'cyan') return `rgba(0, 212, 255, ${alpha})`;
+      if (particle.color === 'purple') return `rgba(123, 47, 255, ${alpha})`;
+      return `rgba(200, 200, 220, ${alpha})`;
+    } else {
+      if (particle.color === 'cyan') return `rgba(0, 140, 180, ${alpha})`;
+      if (particle.color === 'purple') return `rgba(100, 40, 200, ${alpha})`;
+      return `rgba(80, 80, 120, ${alpha})`;
     }
-    return `rgba(200, 200, 220, ${alpha})`;
+  }
+
+  updateTheme(isDark) {
+    this.isDark = isDark;
   }
 
   animate() {
@@ -110,80 +104,80 @@ class InteractiveParticleField {
 
       // Organic drift motion
       p.angle += p.angleSpeed;
-      const driftX = Math.cos(p.angle) * p.driftRadius * 0.01;
-      const driftY = Math.sin(p.angle) * p.driftRadius * 0.01;
-
+      const driftX = Math.cos(p.angle) * p.driftRadius * 0.008;
+      const driftY = Math.sin(p.angle) * p.driftRadius * 0.008;
       p.x += p.vx + driftX;
       p.y += p.vy + driftY;
+      p.rotation += p.rotationSpeed;
 
       // Wrap around edges
-      if (p.x < -20) p.x = this.canvas.width + 20;
-      if (p.x > this.canvas.width + 20) p.x = -20;
-      if (p.y < -20) p.y = this.canvas.height + 20;
-      if (p.y > this.canvas.height + 20) p.y = -20;
+      if (p.x < -40) p.x = this.canvas.width + 40;
+      if (p.x > this.canvas.width + 40) p.x = -40;
+      if (p.y < -40) p.y = this.canvas.height + 40;
+      if (p.y > this.canvas.height + 40) p.y = -40;
 
-      // Mouse interaction — strong repel with elastic return
+      // Mouse interaction — repulsion with elastic return
       const dx = p.x - this.mouse.x;
       const dy = p.y - this.mouse.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       if (dist < this.mouse.radius) {
         const force = (this.mouse.radius - dist) / this.mouse.radius;
-        const pushForce = force * force * 3; // Quadratic falloff for stronger near-effect
-        p.vx += (dx / dist) * pushForce * 0.8;
-        p.vy += (dy / dist) * pushForce * 0.8;
-
-        // Particles grow and brighten near cursor
-        p.radius = p.baseRadius + force * 2;
+        const pushForce = force * force * 2.5;
+        p.vx += (dx / dist) * pushForce * 0.6;
+        p.vy += (dy / dist) * pushForce * 0.6;
+        p.fontSize = p.baseFontSize + force * 6;
         p.opacity = Math.min(p.baseOpacity + force * 0.5, 1);
+        p.rotationSpeed += force * 0.003;
       } else {
-        // Gradually return to base size/opacity
-        p.radius += (p.baseRadius - p.radius) * 0.05;
-        p.opacity += (p.baseOpacity - p.opacity) * 0.05;
+        p.fontSize += (p.baseFontSize - p.fontSize) * 0.04;
+        p.opacity += (p.baseOpacity - p.opacity) * 0.04;
+        p.rotationSpeed += ((Math.random() - 0.5) * 0.008 - p.rotationSpeed) * 0.01;
       }
 
-      // Dampen velocity (elastic return)
-      p.vx *= 0.96;
-      p.vy *= 0.96;
+      // Dampen velocity
+      p.vx *= 0.97;
+      p.vy *= 0.97;
 
-      // Draw particle with glow
+      // Draw code symbol
       this.ctx.save();
-      if (p.radius > 1.2) {
-        this.ctx.shadowBlur = 12;
-        this.ctx.shadowColor = this.getColor(p, 0.4);
+      this.ctx.translate(p.x, p.y);
+      this.ctx.rotate(p.rotation);
+      this.ctx.font = `${Math.round(p.fontSize)}px 'JetBrains Mono', monospace`;
+      this.ctx.textAlign = 'center';
+      this.ctx.textBaseline = 'middle';
+
+      if (p.fontSize > 12) {
+        this.ctx.shadowBlur = 15;
+        this.ctx.shadowColor = this.getColor(p, 0.35);
       }
-      this.ctx.beginPath();
-      this.ctx.arc(p.x, p.y, Math.max(p.radius, 0.1), 0, Math.PI * 2);
+
       this.ctx.fillStyle = this.getColor(p, p.opacity);
-      this.ctx.fill();
+      this.ctx.fillText(p.symbol, 0, 0);
       this.ctx.restore();
 
-      // Draw connections to nearby particles
+      // Draw connections to nearby particles  
       for (let j = i + 1; j < this.particles.length; j++) {
         const p2 = this.particles[j];
         const cdx = p.x - p2.x;
         const cdy = p.y - p2.y;
         const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
 
-        if (cdist < 120) {
-          let lineOpacity = (1 - cdist / 120) * 0.12;
-
-          // Lines glow brighter near cursor
+        if (cdist < 130) {
+          let lineOpacity = (1 - cdist / 130) * 0.08;
           const midX = (p.x + p2.x) / 2;
           const midY = (p.y + p2.y) / 2;
-          const mouseDist = Math.sqrt(
-            (midX - this.mouse.x) ** 2 + (midY - this.mouse.y) ** 2
-          );
+          const mouseDist = Math.sqrt((midX - this.mouse.x) ** 2 + (midY - this.mouse.y) ** 2);
           if (mouseDist < this.mouse.radius) {
-            const boost = (this.mouse.radius - mouseDist) / this.mouse.radius;
-            lineOpacity += boost * 0.2;
+            lineOpacity += ((this.mouse.radius - mouseDist) / this.mouse.radius) * 0.15;
           }
-
           this.ctx.beginPath();
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(p2.x, p2.y);
-          this.ctx.strokeStyle = `rgba(0, 212, 255, ${lineOpacity})`;
-          this.ctx.lineWidth = 0.5;
+          this.ctx.strokeStyle = this.isDark
+            ? `rgba(0, 212, 255, ${lineOpacity})`
+            : `rgba(0, 140, 180, ${lineOpacity})`;
+          this.ctx.lineWidth = 0.4;
           this.ctx.stroke();
         }
       }
@@ -193,25 +187,139 @@ class InteractiveParticleField {
   }
 }
 
-// Initialize full-page particle canvas
+// Initialize particle field
 const particleCanvas = document.getElementById('particle-canvas');
+let particleField = null;
 if (particleCanvas) {
-  new InteractiveParticleField(particleCanvas);
+  particleField = new CodeParticleField(particleCanvas);
 }
 
-// ─── Custom Cursor ───
-class CustomCursor {
+// ─── Hero Hacker Glitch Effect ───
+const GLITCH_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+class HeroHackerGlitch {
   constructor() {
-    this.outer = document.getElementById('cursor-outer');
-    this.inner = document.getElementById('cursor-inner');
-    this.glow = document.getElementById('cursor-glow');
-    if (!this.outer || !this.inner) return;
+    this.letters = document.querySelectorAll('.hero-letter');
+    this.heroName = document.getElementById('hero-name');
+    this.overlay = document.getElementById('hero-intro-overlay');
+    if (!this.letters.length || !this.heroName) return;
+
+    // Store original characters
+    this.originals = Array.from(this.letters).map(l => l.textContent);
+    this.isGlitching = false;
+    this.glitchIntervals = [];
+
+    this.runEntryAnimation();
+    this.bindHover();
+  }
+
+  runEntryAnimation() {
+    // Start with scrambled letters
+    this.letters.forEach((letter) => {
+      letter.style.opacity = '1';
+      letter.textContent = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+    });
+
+    // Overlay fade
+    if (this.overlay) {
+      this.overlay.style.opacity = '1';
+      setTimeout(() => {
+        this.overlay.style.opacity = '0';
+        this.overlay.style.pointerEvents = 'none';
+      }, 300);
+    }
+
+    // Resolve each letter one by one with scrambling
+    this.letters.forEach((letter, i) => {
+      const original = this.originals[i];
+      let iterations = 0;
+      const maxIterations = 8 + i * 4;
+
+      const interval = setInterval(() => {
+        if (iterations >= maxIterations) {
+          letter.textContent = original;
+          letter.classList.remove('hero-glitch');
+          clearInterval(interval);
+          return;
+        }
+        letter.textContent = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        letter.classList.add('hero-glitch');
+        iterations++;
+      }, 40);
+    });
+  }
+
+  bindHover() {
+    this.heroName.addEventListener('mouseenter', () => {
+      if (this.isGlitching) return;
+      this.isGlitching = true;
+      this.startGlitch();
+    });
+
+    this.heroName.addEventListener('mouseleave', () => {
+      this.stopGlitch();
+    });
+  }
+
+  startGlitch() {
+    // Scramble all letters rapidly
+    this.glitchIntervals = this.letters.length ? [] : [];
+    this.letters.forEach((letter, i) => {
+      letter.classList.add('hero-glitch');
+      const interval = setInterval(() => {
+        letter.textContent = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+      }, 50);
+      this.glitchIntervals.push(interval);
+    });
+  }
+
+  stopGlitch() {
+    // Resolve letters back to original with stagger
+    this.glitchIntervals.forEach(interval => clearInterval(interval));
+    this.glitchIntervals = [];
+
+    this.letters.forEach((letter, i) => {
+      const original = this.originals[i];
+      let iterations = 0;
+      const maxIterations = 6 + i * 3;
+
+      const interval = setInterval(() => {
+        if (iterations >= maxIterations) {
+          letter.textContent = original;
+          letter.classList.remove('hero-glitch');
+          clearInterval(interval);
+          if (i === this.letters.length - 1) {
+            this.isGlitching = false;
+          }
+          return;
+        }
+        letter.textContent = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        iterations++;
+      }, 35);
+    });
+  }
+}
+
+// ─── Code-Only Cursor (trail symbol, no circles) ───
+class CodeCursor {
+  constructor() {
+    this.trail = document.getElementById('cursor-trail');
+    // Hide the old circle elements entirely
+    const outer = document.getElementById('cursor-outer');
+    const inner = document.getElementById('cursor-inner');
+    const glow = document.getElementById('cursor-glow');
+    if (outer) outer.style.display = 'none';
+    if (inner) inner.style.display = 'none';
+    if (glow) glow.style.display = 'none';
+
+    if (!this.trail) return;
 
     this.pos = { x: -100, y: -100 };
-    this.outerPos = { x: -100, y: -100 };
-    this.glowPos = { x: -100, y: -100 };
+    this.trailPos = { x: -100, y: -100 };
     this.visible = false;
-    this.hovered = false;
+    this.trailSymbols = ['{  }', '( )', '=>', '</>', '[ ]', '/**/', '//', '!=', '&&', '++', '::'];
+    this.currentTrailSymbol = 0;
+    this.trailTimer = 0;
     this.bindEvents();
     this.animate();
   }
@@ -222,64 +330,38 @@ class CustomCursor {
       this.pos.y = e.clientY;
       if (!this.visible) {
         this.visible = true;
-        this.outer.style.opacity = '1';
-        this.inner.style.opacity = '1';
-        if (this.glow) this.glow.style.opacity = '1';
       }
     });
 
     document.addEventListener('mouseout', () => {
       this.visible = false;
-      this.outer.style.opacity = '0';
-      this.inner.style.opacity = '0';
-      if (this.glow) this.glow.style.opacity = '0';
-    });
-
-    // Scale up on interactive elements
-    const interactives = document.querySelectorAll(
-      'a, button, .skill-tag, .project-card, .timeline-content, .social-link'
-    );
-    interactives.forEach((el) => {
-      el.addEventListener('mouseenter', () => {
-        this.hovered = true;
-        this.outer.classList.add('cursor-hover');
-        this.inner.classList.add('cursor-hover');
-      });
-      el.addEventListener('mouseleave', () => {
-        this.hovered = false;
-        this.outer.classList.remove('cursor-hover');
-        this.inner.classList.remove('cursor-hover');
-      });
+      this.trail.style.opacity = '0';
     });
   }
 
   animate() {
-    // Inner dot follows exactly
-    this.inner.style.left = `${this.pos.x}px`;
-    this.inner.style.top = `${this.pos.y}px`;
+    if (this.trail && this.visible) {
+      this.trailPos.x += (this.pos.x - this.trailPos.x) * 0.12;
+      this.trailPos.y += (this.pos.y - this.trailPos.y) * 0.12;
+      this.trail.style.left = `${this.trailPos.x}px`;
+      this.trail.style.top = `${this.trailPos.y}px`;
+      this.trail.style.opacity = '1';
 
-    // Outer ring follows with lag (lerp)
-    this.outerPos.x += (this.pos.x - this.outerPos.x) * 0.15;
-    this.outerPos.y += (this.pos.y - this.outerPos.y) * 0.15;
-    this.outer.style.left = `${this.outerPos.x}px`;
-    this.outer.style.top = `${this.outerPos.y}px`;
-
-    // Glow follows with even more lag
-    if (this.glow) {
-      this.glowPos.x += (this.pos.x - this.glowPos.x) * 0.08;
-      this.glowPos.y += (this.pos.y - this.glowPos.y) * 0.08;
-      this.glow.style.left = `${this.glowPos.x}px`;
-      this.glow.style.top = `${this.glowPos.y}px`;
+      this.trailTimer++;
+      if (this.trailTimer % 120 === 0) {
+        this.currentTrailSymbol = (this.currentTrailSymbol + 1) % this.trailSymbols.length;
+        this.trail.textContent = this.trailSymbols[this.currentTrailSymbol];
+        this.trail.classList.remove('trail-pop');
+        void this.trail.offsetHeight;
+        this.trail.classList.add('trail-pop');
+      }
+      if (!this.trail.textContent) {
+        this.trail.textContent = this.trailSymbols[0];
+      }
     }
 
     requestAnimationFrame(() => this.animate());
   }
-}
-
-// Only init custom cursor on non-touch devices
-if (window.matchMedia('(pointer: fine)').matches) {
-  new CustomCursor();
-  document.body.classList.add('custom-cursor-active');
 }
 
 // ─── Floating Parallax Elements ───
@@ -287,23 +369,18 @@ class ParallaxField {
   constructor() {
     this.elements = document.querySelectorAll('.parallax-float');
     this.scrollY = 0;
+    this.targetScrollY = 0;
     this.ticking = false;
-
     if (this.elements.length === 0) return;
-
+    this.animate();
     window.addEventListener('scroll', () => {
-      this.scrollY = window.scrollY;
-      if (!this.ticking) {
-        requestAnimationFrame(() => {
-          this.update();
-          this.ticking = false;
-        });
-        this.ticking = true;
-      }
+      this.targetScrollY = window.scrollY;
     }, { passive: true });
   }
 
-  update() {
+  animate() {
+    // Smoothed parallax with lerp
+    this.scrollY += (this.targetScrollY - this.scrollY) * 0.08;
     this.elements.forEach((el) => {
       const speed = parseFloat(el.dataset.speed) || 0.5;
       const rotation = parseFloat(el.dataset.rotate) || 0;
@@ -311,12 +388,13 @@ class ParallaxField {
       const r = this.scrollY * rotation;
       el.style.transform = `translateY(${y}px) rotate(${r}deg)`;
     });
+    requestAnimationFrame(() => this.animate());
   }
 }
 
 new ParallaxField();
 
-// ─── Magnetic Hover Effect on Buttons ───
+// ─── Magnetic Hover Effect ───
 class MagneticElement {
   constructor(el) {
     this.el = el;
@@ -337,9 +415,7 @@ class MagneticElement {
     this.el.addEventListener('mouseleave', () => {
       this.el.style.transform = '';
       this.el.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      setTimeout(() => {
-        this.el.style.transition = '';
-      }, 500);
+      setTimeout(() => { this.el.style.transition = ''; }, 500);
     });
   }
 }
@@ -352,7 +428,7 @@ document.querySelectorAll('.btn, .social-link').forEach((el) => {
 class TiltCard {
   constructor(el) {
     this.el = el;
-    this.maxTilt = 8;
+    this.maxTilt = 6;
     this.bindEvents();
   }
 
@@ -369,9 +445,7 @@ class TiltCard {
     this.el.addEventListener('mouseleave', () => {
       this.el.style.transform = '';
       this.el.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      setTimeout(() => {
-        this.el.style.transition = '';
-      }, 600);
+      setTimeout(() => { this.el.style.transition = ''; }, 600);
     });
 
     this.el.addEventListener('mouseenter', () => {
@@ -400,7 +474,6 @@ class TypeWriter {
 
   type() {
     const current = this.texts[this.currentText];
-
     if (this.isDeleting) {
       this.element.textContent = current.substring(0, this.charIndex - 1);
       this.charIndex--;
@@ -410,7 +483,6 @@ class TypeWriter {
     }
 
     let delay = this.isDeleting ? this.deleteSpeed : this.speed;
-
     if (!this.isDeleting && this.charIndex === current.length) {
       delay = this.pauseTime;
       this.isDeleting = true;
@@ -419,7 +491,6 @@ class TypeWriter {
       this.currentText = (this.currentText + 1) % this.texts.length;
       delay = 400;
     }
-
     setTimeout(() => this.type(), delay);
   }
 }
@@ -428,25 +499,104 @@ const typedEl = document.getElementById('typed-title');
 if (typedEl) {
   new TypeWriter(typedEl, [
     'Software Engineer',
-    'AI/ML Engineer',
+    'AI/ML Enthusiast',
+    'Competitive Programmer',
+    'CS Undergraduate',
     'Full-Stack Developer',
-    'Deep Learning Researcher',
-    'System Architect',
   ]);
 }
 
+// ─── Light/Dark Theme Toggle with Water-Flow Ripple ───
+class ThemeToggle {
+  constructor() {
+    this.toggleBtn = document.getElementById('theme-toggle');
+    this.overlay = document.getElementById('theme-transition-overlay');
+    if (!this.toggleBtn) return;
+
+    this.isDark = true;
+    this.animating = false;
+    this.loadPreference();
+    this.bindEvents();
+  }
+
+  loadPreference() {
+    const saved = localStorage.getItem('portfolio-theme');
+    if (saved === 'light') {
+      this.isDark = false;
+      document.documentElement.setAttribute('data-theme', 'light');
+      this.toggleBtn.classList.add('light-active');
+      if (particleField) particleField.updateTheme(false);
+    } else if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      this.isDark = false;
+      document.documentElement.setAttribute('data-theme', 'light');
+      this.toggleBtn.classList.add('light-active');
+      if (particleField) particleField.updateTheme(false);
+    }
+  }
+
+  bindEvents() {
+    this.toggleBtn.addEventListener('click', (e) => {
+      if (this.animating) return;
+      this.animating = true;
+      this.toggle(e);
+    });
+  }
+
+  toggle(e) {
+    const willBeDark = !this.isDark;
+    const rect = this.toggleBtn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+
+    // Calculate max distance from button to farthest corner
+    const maxDist = Math.sqrt(
+      Math.max(x, window.innerWidth - x) ** 2 +
+      Math.max(y, window.innerHeight - y) ** 2
+    );
+
+    // Immediately switch the theme on the root so the page behind the overlay changes
+    this.isDark = willBeDark;
+    document.documentElement.setAttribute('data-theme', willBeDark ? 'dark' : 'light');
+    this.toggleBtn.classList.toggle('light-active', !willBeDark);
+    localStorage.setItem('portfolio-theme', willBeDark ? 'dark' : 'light');
+    if (particleField) particleField.updateTheme(willBeDark);
+
+    // The overlay captures the OLD theme look — set it to the previous theme color
+    // and cover the entire screen, then shrink it away to reveal the new theme beneath
+    this.overlay.style.background = willBeDark ? '#f0f0f5' : '#0a0a0f';
+    this.overlay.style.clipPath = `circle(${maxDist}px at ${x}px ${y}px)`;
+    this.overlay.style.display = 'block';
+    this.overlay.style.opacity = '1';
+    this.overlay.style.transition = 'none';
+
+    // Force a paint so the overlay is visible at full coverage
+    void this.overlay.offsetHeight;
+
+    // Now shrink the overlay circle to 0, revealing the new theme underneath like a ripple
+    requestAnimationFrame(() => {
+      this.overlay.style.transition = 'clip-path 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
+      this.overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+    });
+
+    // Clean up after animation completes
+    setTimeout(() => {
+      this.overlay.style.display = 'none';
+      this.overlay.style.transition = '';
+      this.animating = false;
+    }, 1300);
+  }
+}
+
+new ThemeToggle();
+
 // ─── Navbar scroll effect ───
 const navbar = document.getElementById('navbar');
-let lastScroll = 0;
-
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  if (scrollY > 50) {
+  if (window.scrollY > 50) {
     navbar.classList.add('scrolled');
   } else {
     navbar.classList.remove('scrolled');
   }
-  lastScroll = scrollY;
 });
 
 // ─── Active nav link based on scroll ───
@@ -466,12 +616,10 @@ const sectionObserver = new IntersectionObserver(
   },
   { rootMargin: '-40% 0px -60% 0px' }
 );
-
 sections.forEach((section) => sectionObserver.observe(section));
 
 // ─── Enhanced Scroll reveal animations ───
 const revealElements = document.querySelectorAll('.reveal-up');
-
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -483,7 +631,6 @@ const revealObserver = new IntersectionObserver(
   },
   { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
 );
-
 revealElements.forEach((el) => revealObserver.observe(el));
 
 // ─── Staggered skill tag reveal ───
@@ -505,9 +652,8 @@ const skillObserver = new IntersectionObserver(
 );
 skillCategories.forEach((cat) => skillObserver.observe(cat));
 
-// ─── Counter animation with overshoot ───
+// ─── Counter animation ───
 const counters = document.querySelectorAll('.stat-number');
-
 const counterObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -516,25 +662,17 @@ const counterObserver = new IntersectionObserver(
         const target = parseInt(counter.dataset.count, 10);
         const duration = 1500;
         const start = performance.now();
-
         const easeOutElastic = (t) => {
           if (t === 0 || t === 1) return t;
           return Math.pow(2, -10 * t) * Math.sin((t - 0.1) * 5 * Math.PI) + 1;
         };
-
         const tick = (now) => {
           const elapsed = now - start;
           const progress = Math.min(elapsed / duration, 1);
-          const eased = easeOutElastic(progress);
-          counter.textContent = Math.round(target * eased);
-
-          if (progress < 1) {
-            requestAnimationFrame(tick);
-          } else {
-            counter.textContent = target;
-          }
+          counter.textContent = Math.round(target * easeOutElastic(progress));
+          if (progress < 1) requestAnimationFrame(tick);
+          else counter.textContent = target;
         };
-
         requestAnimationFrame(tick);
         counterObserver.unobserve(counter);
       }
@@ -542,17 +680,18 @@ const counterObserver = new IntersectionObserver(
   },
   { threshold: 0.5 }
 );
-
 counters.forEach((counter) => counterObserver.observe(counter));
 
 // ─── Smooth scroll for nav links ───
+const mobileBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', (e) => {
     e.preventDefault();
     const target = document.querySelector(anchor.getAttribute('href'));
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
-      // Close mobile menu if open
       mobileMenu?.classList.remove('open');
       mobileBtn?.classList.remove('active');
       document.body.style.overflow = '';
@@ -561,9 +700,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // ─── Mobile menu toggle ───
-const mobileBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-
 if (mobileBtn && mobileMenu) {
   mobileBtn.addEventListener('click', () => {
     mobileBtn.classList.toggle('active');
@@ -585,20 +721,26 @@ const headerObserver = new IntersectionObserver(
   },
   { threshold: 0.3 }
 );
-
-sectionHeaders.forEach((header) => {
-  headerObserver.observe(header);
-});
+sectionHeaders.forEach((header) => headerObserver.observe(header));
 
 // ─── Mouse glow effect on sections ───
 document.querySelectorAll('.section').forEach((section) => {
   section.addEventListener('mousemove', (e) => {
     const rect = section.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    section.style.setProperty('--mouse-x', `${x}px`);
-    section.style.setProperty('--mouse-y', `${y}px`);
+    section.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    section.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
   });
+});
+
+// ─── Init cursor and hero ───
+if (window.matchMedia('(pointer: fine)').matches) {
+  new CodeCursor();
+  document.body.classList.add('custom-cursor-active');
+}
+
+// Delay hero glitch intro slightly for smooth load
+window.addEventListener('load', () => {
+  setTimeout(() => new HeroHackerGlitch(), 200);
 });
 
 console.log('%c[ SHREY ] Portfolio loaded. ✦', 'color: #00d4ff; font-family: monospace; font-size: 14px;');

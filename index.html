@@ -13,20 +13,38 @@
     <!-- ═══════════════ FULL-PAGE PARTICLE CANVAS ═══════════════ -->
     <canvas id="particle-canvas"></canvas>
 
+    <!-- ═══════════════ THEME TRANSITION OVERLAY ═══════════════ -->
+    <div id="theme-transition-overlay"></div>
+
+    <!-- ═══════════════ HERO INTRO OVERLAY ═══════════════ -->
+    <div id="hero-intro-overlay"></div>
+
     <!-- ═══════════════ CUSTOM CURSOR ═══════════════ -->
     <div id="cursor-glow" class="cursor-glow"></div>
     <div id="cursor-outer" class="cursor-outer"></div>
     <div id="cursor-inner" class="cursor-inner"></div>
+    <div id="cursor-trail"></div>
     <!-- ═══════════════ NAVIGATION ═══════════════ -->
     <nav id="navbar" class="navbar">
       <a href="#hero" class="nav-logo">
-        <span class="logo-bracket">[</span> SHREY <span class="logo-bracket">]</span>
+        <span class="logo-bracket">[</span> SC <span class="logo-bracket">]</span>
       </a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
       <div class="nav-links">
         <a href="#about" class="nav-link" data-section="about">About</a>
         <a href="#skills" class="nav-link" data-section="skills">Skills</a>
         <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-        <a href="#experience" class="nav-link" data-section="experience">Experience</a>
         <a href="#contact" class="nav-link" data-section="contact">Contact</a>
       </div>
       <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
@@ -39,7 +57,6 @@
       <a href="#about" class="mobile-link">About</a>
       <a href="#skills" class="mobile-link">Skills</a>
       <a href="#projects" class="mobile-link">Projects</a>
-      <a href="#experience" class="mobile-link">Experience</a>
       <a href="#contact" class="mobile-link">Contact</a>
     </div>
 
@@ -66,13 +83,16 @@
 
       <div class="hero-content">
         <p class="hero-greeting">// Hello, World</p>
-        <h1 class="hero-name">SHREY</h1>
+        <h1 class="hero-name" id="hero-name">
+          <span class="hero-name-line"><span class="hero-letter" style="--i:0">S</span><span class="hero-letter" style="--i:1">H</span><span class="hero-letter" style="--i:2">R</span><span class="hero-letter" style="--i:3">E</span><span class="hero-letter" style="--i:4">Y</span><span class="hero-letter" style="--i:5">A</span><span class="hero-letter" style="--i:6">S</span><span class="hero-letter" style="--i:7">H</span></span>
+          <span class="hero-name-line hero-name-last"><span class="hero-letter" style="--i:8">C</span><span class="hero-letter" style="--i:9">H</span><span class="hero-letter" style="--i:10">A</span><span class="hero-letter" style="--i:11">U</span><span class="hero-letter" style="--i:12">R</span><span class="hero-letter" style="--i:13">A</span><span class="hero-letter" style="--i:14">S</span><span class="hero-letter" style="--i:15">I</span><span class="hero-letter" style="--i:16">A</span></span>
+        </h1>
         <div class="hero-title-wrapper">
           <span class="hero-title-label">role:</span>
           <h2 class="hero-title" id="typed-title"></h2>
           <span class="cursor">|</span>
         </div>
-        <p class="hero-tagline">Building intelligent systems at the intersection of<br><span class="highlight">software engineering</span> & <span class="highlight">artificial intelligence</span></p>
+        <p class="hero-tagline">Building intelligent systems at the intersection of<br><span class="highlight">software engineering</span> & <span class="highlight">machine learning</span></p>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">
             <span class="btn-text">View Projects</span>
@@ -107,26 +127,26 @@
         <div class="about-grid">
           <div class="about-text reveal-up">
             <p class="about-intro">
-              I'm a <span class="highlight">Software Engineer</span> and <span class="highlight">AI/ML Engineer</span> passionate about building systems that learn, adapt, and scale.
+              I'm a <span class="highlight">Computer Science</span> undergraduate and <span class="highlight">AI/ML Enthusiast</span> passionate about building real systems that ship.
             </p>
             <p>
-              With expertise spanning full-stack development and machine learning, I create end-to-end solutions — from designing robust architectures to training models that extract real-world insights. I thrive at the intersection of engineering rigor and creative problem-solving.
+              Currently pursuing B.Tech in CSE at IIIT Vadodara – ICD, I thrive at the intersection of algorithms, system design, and machine learning. From building neural networks from scratch to designing full-stack AI pipelines, I love turning complex problems into elegant solutions.
             </p>
             <p>
-              When I'm not coding, you'll find me exploring the latest research papers, contributing to open-source projects, or experimenting with novel AI architectures.
+              When I'm not coding, you'll find me grinding competitive programming problems, experimenting with LLMs and automation workflows, or exploring cloud platforms.
             </p>
             <div class="about-stats">
               <div class="stat">
-                <span class="stat-number" data-count="15">0</span><span class="stat-suffix">+</span>
+                <span class="stat-number" data-count="390">0</span><span class="stat-suffix">+</span>
+                <span class="stat-label">Problems Solved</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number" data-count="1519">0</span>
+                <span class="stat-label">LeetCode Rating</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number" data-count="6">0</span><span class="stat-suffix">+</span>
                 <span class="stat-label">Projects Built</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number" data-count="5">0</span><span class="stat-suffix">+</span>
-                <span class="stat-label">ML Models Deployed</span>
-              </div>
-              <div class="stat">
-                <span class="stat-number" data-count="3">0</span><span class="stat-suffix">+</span>
-                <span class="stat-label">Years Experience</span>
               </div>
             </div>
           </div>
@@ -139,15 +159,22 @@
                 <span class="terminal-title">~/about.json</span>
               </div>
               <pre class="terminal-body"><code>{
-  <span class="json-key">"name"</span>: <span class="json-string">"Shrey"</span>,
-  <span class="json-key">"title"</span>: <span class="json-string">"Software & AI/ML Engineer"</span>,
+  <span class="json-key">"name"</span>: <span class="json-string">"Shreyash Chaurasia"</span>,
+  <span class="json-key">"role"</span>: <span class="json-string">"CS Undergrad &amp; ML Enthusiast"</span>,
+  <span class="json-key">"university"</span>: <span class="json-string">"IIIT Vadodara - ICD"</span>,
   <span class="json-key">"interests"</span>: [
-    <span class="json-string">"Deep Learning"</span>,
-    <span class="json-string">"Computer Vision"</span>,
-    <span class="json-string">"Full-Stack Dev"</span>,
-    <span class="json-string">"System Design"</span>
+    <span class="json-string">"Machine Learning"</span>,
+    <span class="json-string">"Generative AI &amp; LLMs"</span>,
+    <span class="json-string">"Competitive Programming"</span>,
+    <span class="json-string">"Cloud &amp; Automation"</span>,
+    <span class="json-string">"Cybersecurity"</span>
   ],
-  <span class="json-key">"currently"</span>: <span class="json-string">"Building cool things"</span>,
+  <span class="json-key">"cp_profiles"</span>: {
+    <a href="https://leetcode.com/u/Shreyash_Chaurasia/" target="_blank" class="json-link"><span class="json-key">"leetcode"</span>: <span class="json-string">"1519 · 390+ solved"</span></a>,
+    <a href="https://codeforces.com/profile/SC_03" target="_blank" class="json-link"><span class="json-key">"codeforces"</span>: <span class="json-string">"1338 · Pupil"</span></a>,
+    <a href="https://www.codechef.com/users/shreyash_cpp" target="_blank" class="json-link"><span class="json-key">"codechef"</span>: <span class="json-string">"1466"</span></a>,
+    <a href="https://atcoder.jp/users/SC_03" target="_blank" class="json-link"><span class="json-key">"atcoder"</span>: <span class="json-string">"922 · 6 kyu"</span></a>
+  },
   <span class="json-key">"coffee"</span>: <span class="json-bool">true</span>
 }</code></pre>
             </div>
@@ -178,13 +205,13 @@
               <span class="category-icon">⟨/⟩</span> Languages
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">C++</span>
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">Rust</span>
+              <span class="skill-tag accent-blue">C++ (Advanced)</span>
+              <span class="skill-tag accent-blue">Python</span>
+              <span class="skill-tag accent-blue">JavaScript</span>
+              <span class="skill-tag accent-blue">TypeScript</span>
+              <span class="skill-tag accent-blue">C</span>
+              <span class="skill-tag accent-blue">SQL</span>
+              <span class="skill-tag accent-blue">HTML / CSS</span>
             </div>
           </div>
           <!-- AI/ML -->
@@ -193,43 +220,53 @@
               <span class="category-icon">◈</span> AI / ML
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag accent">PyTorch</span>
-              <span class="skill-tag accent">TensorFlow</span>
+              <span class="skill-tag accent">NumPy</span>
+              <span class="skill-tag accent">Pandas</span>
               <span class="skill-tag accent">Scikit-Learn</span>
-              <span class="skill-tag accent">Hugging Face</span>
-              <span class="skill-tag accent">OpenCV</span>
-              <span class="skill-tag accent">LangChain</span>
-              <span class="skill-tag accent">ONNX</span>
+              <span class="skill-tag accent">Neural Networks</span>
+              <span class="skill-tag accent">Feature Engineering</span>
+              <span class="skill-tag accent">LLMs & Gen AI</span>
             </div>
           </div>
-          <!-- Frameworks -->
+          <!-- Frameworks & Frontend -->
           <div class="skill-category reveal-up" style="--delay: 0.2s">
             <h3 class="skill-category-title">
-              <span class="category-icon">⚙</span> Frameworks
+              <span class="category-icon">⚙</span> Frameworks & Web
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Next.js</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">FastAPI</span>
-              <span class="skill-tag">Flask</span>
-              <span class="skill-tag">Express</span>
+              <span class="skill-tag accent-purple">React.js</span>
+              <span class="skill-tag accent-purple">REST APIs</span>
+              <span class="skill-tag accent-purple">JSON Pipelines</span>
             </div>
           </div>
           <!-- Tools & DevOps -->
           <div class="skill-category reveal-up" style="--delay: 0.3s">
             <h3 class="skill-category-title">
-              <span class="category-icon">☁</span> Cloud & DevOps
+              <span class="category-icon">☁</span> Tools & Platforms
             </h3>
             <div class="skill-tags">
-              <span class="skill-tag">Docker</span>
-              <span class="skill-tag">AWS</span>
-              <span class="skill-tag">GCP</span>
-              <span class="skill-tag">Git</span>
-              <span class="skill-tag">CI/CD</span>
-              <span class="skill-tag">PostgreSQL</span>
-              <span class="skill-tag">MongoDB</span>
-              <span class="skill-tag">Redis</span>
+              <span class="skill-tag accent-green">Linux</span>
+              <span class="skill-tag accent-green">Git</span>
+              <span class="skill-tag accent-green">Docker</span>
+              <span class="skill-tag accent-green">Bash</span>
+              <span class="skill-tag accent-green">Google Cloud</span>
+              <span class="skill-tag accent-green">n8n</span>
+              <span class="skill-tag accent-green">LaTeX</span>
+              <span class="skill-tag accent-green">MATLAB</span>
+            </div>
+          </div>
+          <!-- Core CS -->
+          <div class="skill-category reveal-up" style="--delay: 0.4s">
+            <h3 class="skill-category-title">
+              <span class="category-icon">⟨⟩</span> Core CS
+            </h3>
+            <div class="skill-tags">
+              <span class="skill-tag accent-orange">DSA</span>
+              <span class="skill-tag accent-orange">OOP</span>
+              <span class="skill-tag accent-orange">Operating Systems</span>
+              <span class="skill-tag accent-orange">System Design</span>
+              <span class="skill-tag accent-orange">DBMS</span>
+              <span class="skill-tag accent-orange">Networking</span>
             </div>
           </div>
         </div>
@@ -252,33 +289,33 @@
           <div class="section-line"></div>
         </div>
         <div class="projects-grid">
-          <!-- Project 1 -->
+          <!-- Project 1: Stock Market Analyzer -->
           <article class="project-card reveal-up">
             <div class="project-image" id="project-img-1">
               <div class="project-image-placeholder">
+                <div class="placeholder-code-lines">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
                 <span class="placeholder-icon">◈</span>
               </div>
               <div class="project-overlay">
                 <div class="project-links">
-                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                  <a href="https://github.com/ShreyashChaurasia/Stock_market_analyzer" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                  </a>
-                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="Live Demo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   </a>
                 </div>
               </div>
             </div>
             <div class="project-info">
-              <span class="project-label">AI / Computer Vision</span>
-              <h3 class="project-name">Neural Style Transfer Engine</h3>
-              <p class="project-desc">Real-time neural style transfer application using deep CNNs. Transform photos into artistic masterpieces with custom model architectures and GPU-accelerated inference.</p>
+              <span class="project-label">Full-Stack AI / ML</span>
+              <h3 class="project-name">Stock Market Analyzer</h3>
+              <p class="project-desc">End-to-end AI-powered stock analysis platform. Modular ML pipelines with data ingestion, feature engineering, per-ticker model training, and interactive React + TypeScript frontend dashboards.</p>
               <div class="project-tech">
-                <span>PyTorch</span><span>FastAPI</span><span>React</span><span>CUDA</span>
+                <span>Python</span><span>React</span><span>TypeScript</span><span>Docker</span>
               </div>
             </div>
           </article>
-          <!-- Project 2 -->
+          <!-- Project 2: Neural Network from Scratch -->
           <article class="project-card reveal-up" style="--delay: 0.15s">
             <div class="project-image" id="project-img-2">
               <div class="project-image-placeholder">
@@ -286,112 +323,73 @@
               </div>
               <div class="project-overlay">
                 <div class="project-links">
-                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                  <a href="https://github.com/ShreyashChaurasia" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                  </a>
-                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="Live Demo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   </a>
                 </div>
               </div>
             </div>
             <div class="project-info">
-              <span class="project-label">Full-Stack / NLP</span>
-              <h3 class="project-name">AI-Powered Code Reviewer</h3>
-              <p class="project-desc">Automated code review tool using LLM-based analysis. Provides intelligent suggestions for code quality, security vulnerabilities, and performance optimizations.</p>
+              <span class="project-label">Deep Learning / Python</span>
+              <h3 class="project-name">Neural Network from Scratch</h3>
+              <p class="project-desc">Implemented a neural network framework in pure Python & NumPy — forward/backward propagation, gradient-based optimization, and training loops to deeply understand core ML concepts.</p>
               <div class="project-tech">
-                <span>LangChain</span><span>Next.js</span><span>Python</span><span>GPT-4</span>
+                <span>Python</span><span>NumPy</span><span>Math</span>
               </div>
             </div>
           </article>
-          <!-- Project 3 -->
+          <!-- Project 3: Automation & AI Tooling -->
           <article class="project-card reveal-up" style="--delay: 0.3s">
             <div class="project-image" id="project-img-3">
               <div class="project-image-placeholder">
+                <div class="placeholder-code-lines">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
                 <span class="placeholder-icon">☁</span>
               </div>
               <div class="project-overlay">
                 <div class="project-links">
-                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                  <a href="https://github.com/ShreyashChaurasia" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                  </a>
-                  <a href="#" class="project-link" target="_blank" rel="noopener" aria-label="Live Demo">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   </a>
                 </div>
               </div>
             </div>
             <div class="project-info">
-              <span class="project-label">MLOps / Infrastructure</span>
-              <h3 class="project-name">ML Pipeline Orchestrator</h3>
-              <p class="project-desc">End-to-end ML pipeline management platform. Automates data ingestion, model training, evaluation, and deployment with real-time monitoring dashboards.</p>
+              <span class="project-label">DevOps / Automation</span>
+              <h3 class="project-name">Automation & AI Tooling</h3>
+              <p class="project-desc">Dockerized workflow automation pipelines using n8n for API orchestration and data processing. Continuously experimenting with AI tools to improve developer productivity.</p>
               <div class="project-tech">
-                <span>Docker</span><span>Kubernetes</span><span>FastAPI</span><span>MLflow</span>
+                <span>Docker</span><span>n8n</span><span>APIs</span><span>Bash</span>
               </div>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
-    <section id="experience" class="section experience">
-      <!-- Floating shapes - Experience -->
-      <div class="parallax-float" data-speed="0.35" data-rotate="0.015" style="top: 15%; left: 4%;">
-        <div class="float-shape shape-dots"></div>
-      </div>
-      <div class="parallax-float" data-speed="0.2" data-rotate="-0.01" style="bottom: 12%; right: 5%;">
-        <div class="float-shape shape-diamond small"></div>
-      </div>
-      <div class="container">
-        <div class="section-header">
-          <span class="section-number">04</span>
-          <h2 class="section-title">Experience</h2>
-          <div class="section-line"></div>
-        </div>
-        <div class="timeline">
-          <div class="timeline-item reveal-up">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>AI/ML Engineer</h3>
-                <span class="timeline-company">Tech Company</span>
+          <!-- Project 4: Digital Attendance System -->
+          <article class="project-card reveal-up" style="--delay: 0.45s">
+            <div class="project-image" id="project-img-4">
+              <div class="project-image-placeholder">
+                <div class="placeholder-code-lines">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+                <span class="placeholder-icon">⟨⟩</span>
               </div>
-              <span class="timeline-date">2024 — Present</span>
-              <p>Leading development of ML infrastructure and deploying production-grade models. Building scalable data pipelines and optimizing model inference for real-time applications.</p>
-              <div class="timeline-tags">
-                <span>PyTorch</span><span>AWS</span><span>Docker</span><span>MLOps</span>
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://github.com/ShreyashChaurasia" class="project-link" target="_blank" rel="noopener" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="timeline-item reveal-up" style="--delay: 0.15s">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>Software Engineer</h3>
-                <span class="timeline-company">Startup Inc.</span>
-              </div>
-              <span class="timeline-date">2023 — 2024</span>
-              <p>Built and maintained full-stack applications serving thousands of users. Designed RESTful APIs, implemented CI/CD pipelines, and optimized application performance.</p>
-              <div class="timeline-tags">
-                <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>AWS</span>
+            <div class="project-info">
+              <span class="project-label">DBMS / Full-Stack</span>
+              <h3 class="project-name">Digital Attendance System</h3>
+              <p class="project-desc">Database-driven attendance management system with normalized schema design, CRUD operations, and reporting. Features relational data modeling with proper constraints.</p>
+              <div class="project-tech">
+                <span>SQL</span><span>Python</span><span>DBMS</span>
               </div>
             </div>
-          </div>
-          <div class="timeline-item reveal-up" style="--delay: 0.3s">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>Research Assistant</h3>
-                <span class="timeline-company">University Lab</span>
-              </div>
-              <span class="timeline-date">2022 — 2023</span>
-              <p>Conducted research in computer vision and natural language processing. Published papers on novel attention mechanisms and contributed to open-source ML frameworks.</p>
-              <div class="timeline-tags">
-                <span>Python</span><span>TensorFlow</span><span>NLP</span><span>CV</span>
-              </div>
-            </div>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -400,7 +398,7 @@
     <section id="contact" class="section contact">
       <div class="container">
         <div class="section-header">
-          <span class="section-number">05</span>
+          <span class="section-number">04</span>
           <h2 class="section-title">Get in Touch</h2>
           <div class="section-line"></div>
         </div>
@@ -408,22 +406,22 @@
           <p class="contact-text">
             I'm always open to discussing <span class="highlight">new projects</span>, creative ideas, or opportunities to be part of something amazing. Let's build something great together.
           </p>
-          <a href="mailto:hello@shrey.dev" class="btn btn-primary btn-lg">
+          <a href="mailto:shreyashcebola@gmail.com" class="btn btn-primary btn-lg">
             <span class="btn-text">Say Hello</span>
             <span class="btn-icon">→</span>
           </a>
           <div class="contact-socials">
-            <a href="https://github.com" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+            <a href="https://github.com/ShreyashChaurasia" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
               <span>GitHub</span>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/shreyash-chaurasia-399b9432b" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               <span>LinkedIn</span>
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link" aria-label="X / Twitter">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.733 16h4.267l-11.733 -16h-4.267z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
-              <span>X / Twitter</span>
+            <a href="mailto:shreyashcebola@gmail.com" class="social-link" aria-label="Email">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>Email</span>
             </a>
           </div>
         </div>
@@ -434,7 +432,7 @@
     <footer class="footer">
       <div class="container footer-inner">
         <span class="footer-text">
-          <span class="footer-bracket">[</span> Designed & Built by Shrey <span class="footer-bracket">]</span>
+          <span class="footer-bracket">[</span> Designed & Built by Shreyash <span class="footer-bracket">]</span>
         </span>
         <span class="footer-copy">© 2026 — All Rights Reserved</span>
       </div>
