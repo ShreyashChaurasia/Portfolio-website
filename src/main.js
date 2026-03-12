@@ -462,6 +462,7 @@ document.querySelectorAll('.project-card, .skill-category, .terminal-card').forE
 class TypeWriter {
   constructor(element, texts, speed = 80) {
     this.element = element;
+    this.cursor = element.nextElementSibling;
     this.texts = texts;
     this.speed = speed;
     this.deleteSpeed = 40;
@@ -483,13 +484,21 @@ class TypeWriter {
     }
 
     let delay = this.isDeleting ? this.deleteSpeed : this.speed;
+    
+    // Add typing class to cursor when actively typing/deleting
+    if (this.cursor) {
+      this.cursor.classList.add('typing');
+    }
+
     if (!this.isDeleting && this.charIndex === current.length) {
       delay = this.pauseTime;
       this.isDeleting = true;
+      if (this.cursor) this.cursor.classList.remove('typing'); // Pause at end of text
     } else if (this.isDeleting && this.charIndex === 0) {
       this.isDeleting = false;
       this.currentText = (this.currentText + 1) % this.texts.length;
       delay = 400;
+      if (this.cursor) this.cursor.classList.remove('typing'); // Pause before new text
     }
     setTimeout(() => this.type(), delay);
   }
