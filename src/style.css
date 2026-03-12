@@ -525,15 +525,11 @@ body::before {
 /* ─── HERO NAME — Hacker glitch text ─── */
 .hero-name {
   font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-size: clamp(2.2rem, 6.5vw, 4.8rem);
   font-weight: 900;
-  letter-spacing: 10px;
+  letter-spacing: 8px;
   line-height: 1.05;
   margin-bottom: 20px;
-  background: linear-gradient(180deg, #ffffff 0%, #8888a8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   text-shadow: none;
   display: flex;
   flex-direction: column;
@@ -546,26 +542,31 @@ body::before {
 }
 
 .hero-name-last {
-  font-size: 0.55em;
-  letter-spacing: 14px;
-  opacity: 0.7;
+  font-size: 0.6em;
+  letter-spacing: 12px;
+  opacity: 0.8;
 }
 
+/* Base Light Theme fallback container just in case */
 [data-theme="light"] .hero-name {
-  background: linear-gradient(180deg, #1a1a2e 0%, #555580 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
+  color: #1a1a2e;
 }
 
 .hero-letter {
   display: inline-block;
   will-change: contents;
-  background: inherit;
+  background: linear-gradient(180deg, #ffffff 0%, #8888a8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: text-shadow 0.1s;
   position: relative;
+}
+
+[data-theme="light"] .hero-letter {
+  background: linear-gradient(180deg, #1a1a2e 0%, #555580 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 /* Hacker glitch — rapid color flicker */
@@ -905,8 +906,9 @@ body::before {
 .json-link {
   text-decoration: none;
   color: inherit;
-  display: block;
-  padding: 2px 0;
+  display: inline-block;
+  padding: 2px 4px;
+  margin-left: -4px;
   border-radius: 4px;
   transition: background 0.2s ease, transform 0.2s ease;
 }
