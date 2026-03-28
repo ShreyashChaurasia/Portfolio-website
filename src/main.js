@@ -341,8 +341,8 @@ class CodeCursor {
 
   animate() {
     if (this.trail && this.visible) {
-      this.trailPos.x += (this.pos.x - this.trailPos.x) * 0.12;
-      this.trailPos.y += (this.pos.y - this.trailPos.y) * 0.12;
+      this.trailPos.x += (this.pos.x - this.trailPos.x) * 0.35;
+      this.trailPos.y += (this.pos.y - this.trailPos.y) * 0.35;
       this.trail.style.left = `${this.trailPos.x}px`;
       this.trail.style.top = `${this.trailPos.y}px`;
       this.trail.style.opacity = '1';
@@ -454,7 +454,7 @@ class TiltCard {
   }
 }
 
-document.querySelectorAll('.project-card, .skill-category, .terminal-card').forEach((el) => {
+document.querySelectorAll('.skill-category, .terminal-card').forEach((el) => {
   new TiltCard(el);
 });
 

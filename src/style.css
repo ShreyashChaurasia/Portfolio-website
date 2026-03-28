@@ -1106,134 +1106,75 @@ body::before {
 }
 
 /* ─── PROJECTS ─── */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 28px;
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .project-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: border-color 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), background 0.4s ease;
-  backdrop-filter: blur(20px);
-  will-change: transform;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: start;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
+  position: relative;
+  transition: padding-left 0.6s ease, background 0.6s ease;
+}
+
+.project-card:first-child {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent-gradient);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  border-radius: 2px;
 }
 
 .project-card:hover {
-  border-color: var(--border-accent);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 212, 255, 0.05);
+  padding-left: 16px;
 }
 
-[data-theme="light"] .project-card:hover {
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1), 0 0 30px rgba(0, 148, 184, 0.05);
-}
-
-.project-image {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-  background: var(--bg-secondary);
-  background-image:
-    radial-gradient(circle at 100% 0%, rgba(0, 212, 255, 0.08) 0%, transparent 60%),
-    radial-gradient(circle at 0% 100%, rgba(123, 47, 255, 0.08) 0%, transparent 60%),
-    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-[data-theme="light"] .project-image {
-  background: var(--bg-secondary);
-  background-image:
-    radial-gradient(circle at 100% 0%, rgba(0, 148, 184, 0.08) 0%, transparent 60%),
-    radial-gradient(circle at 0% 100%, rgba(106, 36, 204, 0.08) 0%, transparent 60%),
-    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
-}
-
-.project-aesthetic-icon {
-  font-family: var(--font-mono);
-  font-size: 3.5rem;
-  font-weight: 800;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 0.25;
-  letter-spacing: 4px;
-  transition: all 0.5s var(--ease-out);
-  user-select: none;
-}
-
-.project-card:hover .project-aesthetic-icon {
-  opacity: 0.8;
-  transform: scale(1.1);
-  letter-spacing: 6px;
-}
-
-.project-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 10, 15, 0.7);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out);
-}
-
-[data-theme="light"] .project-overlay {
-  background: rgba(240, 240, 245, 0.75);
-}
-
-.project-card:hover .project-overlay {
+.project-card:hover::before {
   opacity: 1;
 }
 
-.project-links {
-  display: flex;
-  gap: 16px;
+[data-theme="light"] .project-card:hover {
+  background: transparent;
 }
 
-.project-link {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-primary);
-  transition: all 0.3s var(--ease-out);
-  background: rgba(255, 255, 255, 0.05);
+.project-index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  padding-top: 4px;
+  letter-spacing: 1px;
+  transition: color 0.3s;
 }
 
-[data-theme="light"] .project-link {
-  border-color: rgba(0, 0, 0, 0.15);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.project-link:hover {
-  border-color: var(--accent-cyan);
+.project-card:hover .project-index {
   color: var(--accent-cyan);
-  box-shadow: var(--accent-glow-cyan);
-  transform: scale(1.1);
 }
 
-.project-info {
-  padding: 24px;
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .project-label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--accent-cyan);
@@ -1242,11 +1183,11 @@ body::before {
 
 .project-name {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin: 10px 0 12px;
   color: var(--text-primary);
   transition: color 0.3s;
+  line-height: 1.3;
 }
 
 .project-card:hover .project-name {
@@ -1257,23 +1198,47 @@ body::before {
   font-size: 0.82rem;
   color: var(--text-secondary);
   line-height: 1.7;
-  margin-bottom: 16px;
+  max-width: 640px;
 }
 
 .project-tech {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: 4px;
 }
 
 .project-tech span {
-  font-size: 0.68rem;
-  padding: 5px 12px;
+  font-size: 0.67rem;
+  padding: 4px 10px;
   border-radius: var(--radius-xl);
-  background: rgba(0, 212, 255, 0.06);
-  border: 1px solid rgba(0, 212, 255, 0.1);
+  background: rgba(0, 212, 255, 0.05);
+  border: 1px solid rgba(0, 212, 255, 0.12);
   color: var(--accent-cyan);
   letter-spacing: 0.5px;
+  font-family: var(--font-mono);
+}
+
+.project-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 1rem;
+  transition: all 0.6s ease;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.project-card:hover .project-arrow {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  transform: translateX(4px);
+  box-shadow: var(--accent-glow-cyan);
 }
 
 /* ─── EXPERIENCE TIMELINE ─── */
@@ -1564,10 +1529,6 @@ body::before {
     grid-template-columns: 1fr;
   }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
   .section {
     padding: 80px 0;
   }
@@ -1616,6 +1577,16 @@ body::before {
   .contact-socials {
     flex-direction: column;
     align-items: center;
+  }
+
+  .project-card {
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    padding: 20px 0;
+  }
+
+  .project-arrow {
+    display: none;
   }
 
   .footer-inner {
