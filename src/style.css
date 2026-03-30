@@ -194,7 +194,7 @@ body::before {
   color: var(--accent-cyan);
   opacity: 0;
   transform: translate(-50%, -50%);
-  transition: opacity 0.2s;
+  transition: opacity 0.08s linear;
   text-shadow: 0 0 12px rgba(0, 212, 255, 0.5), 0 0 30px rgba(0, 212, 255, 0.15);
   letter-spacing: 1px;
 }
@@ -204,7 +204,7 @@ body::before {
 }
 
 .trail-pop {
-  animation: trailPop 0.35s var(--ease-spring);
+  animation: trailPop 0.2s var(--ease-out);
 }
 
 @keyframes trailPop {
@@ -662,7 +662,7 @@ body::before {
   font-weight: 500;
   letter-spacing: 1px;
   border-radius: var(--radius-xl);
-  transition: all 0.4s var(--ease-out);
+  transition: all 0.24s var(--ease-out);
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -755,7 +755,7 @@ body::before {
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 0;
-  transition: left 0.3s, top 0.3s;
+  transition: left 0.08s linear, top 0.08s linear;
 }
 
 [data-theme="light"] .section::before {
@@ -995,7 +995,7 @@ body::before {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
-  transition: all 0.4s var(--ease-out);
+  transition: all 0.22s var(--ease-out);
   letter-spacing: 0.5px;
   cursor: default;
   opacity: 0;
@@ -1121,7 +1121,7 @@ body::before {
   border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
   position: relative;
-  transition: padding-left 0.6s ease, background 0.6s ease;
+  transition: background 0.45s var(--ease-out);
 }
 
 .project-card:first-child {
@@ -1137,40 +1137,50 @@ body::before {
   width: 2px;
   background: var(--accent-gradient);
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transform: scaleY(0.9);
+  transform-origin: center;
+  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
   border-radius: 2px;
 }
 
 .project-card:hover {
-  padding-left: 16px;
+  background: linear-gradient(90deg, rgba(0, 212, 255, 0.035) 0%, rgba(0, 212, 255, 0) 55%);
 }
 
 .project-card:hover::before {
-  opacity: 1;
+  opacity: 0.78;
+  transform: scaleY(1);
 }
 
 [data-theme="light"] .project-card:hover {
-  background: transparent;
+  background: linear-gradient(90deg, rgba(0, 148, 184, 0.04) 0%, rgba(0, 148, 184, 0) 55%);
 }
 
 .project-index {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-muted);
   font-weight: 400;
   padding-top: 4px;
   letter-spacing: 1px;
-  transition: color 0.3s;
+  transition: color 0.36s var(--ease-out), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-card:hover .project-index {
   color: var(--accent-cyan);
+  transform: translateX(4px);
 }
 
 .project-body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover .project-body {
+  transform: translateX(4px);
 }
 
 .project-label {
@@ -1229,7 +1239,7 @@ body::before {
   border: 1px solid var(--border-subtle);
   color: var(--text-muted);
   font-size: 1rem;
-  transition: all 0.6s ease;
+  transition: border-color 0.32s var(--ease-out), color 0.32s var(--ease-out), box-shadow 0.4s var(--ease-out), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   margin-top: 2px;
   flex-shrink: 0;
 }
@@ -1237,8 +1247,8 @@ body::before {
 .project-card:hover .project-arrow {
   border-color: var(--accent-cyan);
   color: var(--accent-cyan);
-  transform: translateX(4px);
-  box-shadow: var(--accent-glow-cyan);
+  transform: translateX(5px);
+  box-shadow: 0 0 0 1px rgba(0, 212, 255, 0.15), 0 0 14px rgba(0, 212, 255, 0.16);
 }
 
 /* ─── EXPERIENCE TIMELINE ─── */
@@ -1390,7 +1400,7 @@ body::before {
   border-radius: var(--radius-xl);
   font-size: 0.78rem;
   color: var(--text-secondary);
-  transition: all 0.3s var(--ease-out);
+  transition: all 0.2s var(--ease-out);
   letter-spacing: 1px;
   will-change: transform;
 }

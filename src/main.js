@@ -13,7 +13,8 @@ class CodeParticleField {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
     this.particles = [];
-    this.mouse = { x: -1000, y: -1000, radius: 220 };
+    this.mouse = { x: -1000, y: -1000, radius: 190 };
+    this.mouseRadiusSq = this.mouse.radius * this.mouse.radius;
     this.scrollY = 0;
     this.isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     this.resize();
@@ -30,11 +31,12 @@ class CodeParticleField {
   init() {
     this.particles = [];
     const area = this.canvas.width * this.canvas.height;
-    const count = Math.min(Math.floor(area / 8000), 150);
+    const count = Math.min(Math.floor(area / 10000), 110);
 
     for (let i = 0; i < count; i++) {
       const type = Math.random();
       let fontSize, speed, opacity, color;
+      const rotationSpeed = (Math.random() - 0.5) * 0.008;
 
       if (type < 0.15) {
         fontSize = Math.random() * 6 + 14;
@@ -65,7 +67,8 @@ class CodeParticleField {
         color,
         symbol: CODE_SYMBOLS[Math.floor(Math.random() * CODE_SYMBOLS.length)],
         rotation: Math.random() * Math.PI * 2,
-        rotationSpeed: (Math.random() - 0.5) * 0.008,
+        rotationSpeed,
+        baseRotationSpeed: rotationSpeed,
         angle: Math.random() * Math.PI * 2,
         angleSpeed: (Math.random() - 0.5) * 0.008,
         driftRadius: Math.random() * 25 + 8,
@@ -75,8 +78,9 @@ class CodeParticleField {
 
   bindEvents() {
     window.addEventListener('resize', () => { this.resize(); this.init(); });
-    window.addEventListener('mousemove', (e) => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; });
-    window.addEventListener('mouseout', () => { this.mouse.x = -1000; this.mouse.y = -1000; });
+    window.addEventListener('pointermove', (e) => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; }, { passive: true });
+    window.addEventListener('pointerleave', () => { this.mouse.x = -1000; this.mouse.y = -1000; });
+    window.addEventListener('blur', () => { this.mouse.x = -1000; this.mouse.y = -1000; });
     window.addEventListener('scroll', () => { this.scrollY = window.scrollY; }, { passive: true });
   }
 
@@ -98,6 +102,10 @@ class CodeParticleField {
 
   animate() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    const mouseRadius = this.mouse.radius;
+    const mouseRadiusSq = this.mouseRadiusSq;
+    const connectDistance = 120;
+    const connectDistanceSq = connectDistance * connectDistance;
 
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
@@ -119,20 +127,22 @@ class CodeParticleField {
       // Mouse interaction — repulsion with elastic return
       const dx = p.x - this.mouse.x;
       const dy = p.y - this.mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const distSq = dx * dx + dy * dy;
 
-      if (dist < this.mouse.radius) {
-        const force = (this.mouse.radius - dist) / this.mouse.radius;
+      if (distSq < mouseRadiusSq && distSq > 0.0001) {
+        const dist = Math.sqrt(distSq);
+        const force = (mouseRadius - dist) / mouseRadius;
         const pushForce = force * force * 2.5;
-        p.vx += (dx / dist) * pushForce * 0.6;
-        p.vy += (dy / dist) * pushForce * 0.6;
+        const invDist = 1 / dist;
+        p.vx += dx * invDist * pushForce * 0.6;
+        p.vy += dy * invDist * pushForce * 0.6;
         p.fontSize = p.baseFontSize + force * 6;
         p.opacity = Math.min(p.baseOpacity + force * 0.5, 1);
         p.rotationSpeed += force * 0.003;
       } else {
         p.fontSize += (p.baseFontSize - p.fontSize) * 0.04;
         p.opacity += (p.baseOpacity - p.opacity) * 0.04;
-        p.rotationSpeed += ((Math.random() - 0.5) * 0.008 - p.rotationSpeed) * 0.01;
+        p.rotationSpeed += (p.baseRotationSpeed - p.rotationSpeed) * 0.02;
       }
 
       // Dampen velocity
@@ -161,16 +171,22 @@ class CodeParticleField {
         const p2 = this.particles[j];
         const cdx = p.x - p2.x;
         const cdy = p.y - p2.y;
-        const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
+        const cdistSq = cdx * cdx + cdy * cdy;
 
-        if (cdist < 130) {
-          let lineOpacity = (1 - cdist / 130) * 0.08;
+        if (cdistSq < connectDistanceSq) {
+          const cdist = Math.sqrt(cdistSq);
+          let lineOpacity = (1 - cdist / connectDistance) * 0.08;
           const midX = (p.x + p2.x) / 2;
           const midY = (p.y + p2.y) / 2;
-          const mouseDist = Math.sqrt((midX - this.mouse.x) ** 2 + (midY - this.mouse.y) ** 2);
-          if (mouseDist < this.mouse.radius) {
-            lineOpacity += ((this.mouse.radius - mouseDist) / this.mouse.radius) * 0.15;
+          const mdx = midX - this.mouse.x;
+          const mdy = midY - this.mouse.y;
+          const mouseDistSq = mdx * mdx + mdy * mdy;
+
+          if (mouseDistSq < mouseRadiusSq) {
+            const mouseDist = Math.sqrt(mouseDistSq);
+            lineOpacity += ((mouseRadius - mouseDist) / mouseRadius) * 0.15;
           }
+
           this.ctx.beginPath();
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(p2.x, p2.y);
@@ -317,23 +333,33 @@ class CodeCursor {
     this.pos = { x: -100, y: -100 };
     this.trailPos = { x: -100, y: -100 };
     this.visible = false;
+    this.followStrength = 0.62;
+    this.symbolSwitchFrames = 90;
     this.trailSymbols = ['{  }', '( )', '=>', '</>', '[ ]', '/**/', '//', '!=', '&&', '++', '::'];
     this.currentTrailSymbol = 0;
     this.trailTimer = 0;
+    this.trail.textContent = this.trailSymbols[0];
     this.bindEvents();
     this.animate();
   }
 
   bindEvents() {
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('pointermove', (e) => {
       this.pos.x = e.clientX;
       this.pos.y = e.clientY;
       if (!this.visible) {
         this.visible = true;
+        this.trailPos.x = this.pos.x;
+        this.trailPos.y = this.pos.y;
       }
+    }, { passive: true });
+
+    document.addEventListener('pointerleave', () => {
+      this.visible = false;
+      this.trail.style.opacity = '0';
     });
 
-    document.addEventListener('mouseout', () => {
+    window.addEventListener('blur', () => {
       this.visible = false;
       this.trail.style.opacity = '0';
     });
@@ -341,22 +367,19 @@ class CodeCursor {
 
   animate() {
     if (this.trail && this.visible) {
-      this.trailPos.x += (this.pos.x - this.trailPos.x) * 0.35;
-      this.trailPos.y += (this.pos.y - this.trailPos.y) * 0.35;
+      this.trailPos.x += (this.pos.x - this.trailPos.x) * this.followStrength;
+      this.trailPos.y += (this.pos.y - this.trailPos.y) * this.followStrength;
       this.trail.style.left = `${this.trailPos.x}px`;
       this.trail.style.top = `${this.trailPos.y}px`;
       this.trail.style.opacity = '1';
 
       this.trailTimer++;
-      if (this.trailTimer % 120 === 0) {
+      if (this.trailTimer % this.symbolSwitchFrames === 0) {
         this.currentTrailSymbol = (this.currentTrailSymbol + 1) % this.trailSymbols.length;
         this.trail.textContent = this.trailSymbols[this.currentTrailSymbol];
         this.trail.classList.remove('trail-pop');
         void this.trail.offsetHeight;
         this.trail.classList.add('trail-pop');
-      }
-      if (!this.trail.textContent) {
-        this.trail.textContent = this.trailSymbols[0];
       }
     }
 
@@ -403,19 +426,19 @@ class MagneticElement {
   }
 
   bindEvents() {
-    this.el.addEventListener('mousemove', (e) => {
+    this.el.addEventListener('pointermove', (e) => {
       const rect = this.el.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const deltaX = (e.clientX - centerX) * this.strength;
       const deltaY = (e.clientY - centerY) * this.strength;
       this.el.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-    });
+    }, { passive: true });
 
     this.el.addEventListener('mouseleave', () => {
       this.el.style.transform = '';
-      this.el.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      setTimeout(() => { this.el.style.transition = ''; }, 500);
+      this.el.style.transition = 'transform 0.24s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => { this.el.style.transition = ''; }, 240);
     });
   }
 }
@@ -433,19 +456,19 @@ class TiltCard {
   }
 
   bindEvents() {
-    this.el.addEventListener('mousemove', (e) => {
+    this.el.addEventListener('pointermove', (e) => {
       const rect = this.el.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;
       const tiltX = (y - 0.5) * -this.maxTilt;
       const tiltY = (x - 0.5) * this.maxTilt;
       this.el.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
-    });
+    }, { passive: true });
 
     this.el.addEventListener('mouseleave', () => {
       this.el.style.transform = '';
-      this.el.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-      setTimeout(() => { this.el.style.transition = ''; }, 600);
+      this.el.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => { this.el.style.transition = ''; }, 280);
     });
 
     this.el.addEventListener('mouseenter', () => {
@@ -606,7 +629,7 @@ window.addEventListener('scroll', () => {
   } else {
     navbar.classList.remove('scrolled');
   }
-});
+}, { passive: true });
 
 // ─── Active nav link based on scroll ───
 const sections = document.querySelectorAll('.section');
@@ -732,12 +755,30 @@ const headerObserver = new IntersectionObserver(
 );
 sectionHeaders.forEach((header) => headerObserver.observe(header));
 
+// ─── Keep project numbers in sync with card order ───
+document.querySelectorAll('.projects-list .project-card').forEach((card, i) => {
+  const indexLabel = card.querySelector('.project-index');
+  if (!indexLabel) return;
+  indexLabel.textContent = String(i + 1).padStart(2, '0');
+});
+
 // ─── Mouse glow effect on sections ───
 document.querySelectorAll('.section').forEach((section) => {
-  section.addEventListener('mousemove', (e) => {
+  let rafId = null;
+  let mouseX = -300;
+  let mouseY = -300;
+
+  section.addEventListener('pointermove', (e) => {
     const rect = section.getBoundingClientRect();
-    section.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-    section.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+
+    if (rafId !== null) return;
+    rafId = requestAnimationFrame(() => {
+      section.style.setProperty('--mouse-x', `${mouseX}px`);
+      section.style.setProperty('--mouse-y', `${mouseY}px`);
+      rafId = null;
+    });
   });
 });
 
