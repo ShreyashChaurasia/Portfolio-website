@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+docs/igloo_ref_frames/
 *.local
 
 # Editor directories and files
